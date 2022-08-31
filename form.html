@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login2Xplore Mini Project</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://login2explore.com/jpdb/resources/js/0.0.3/jpdb-commons.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <style>
+            body {
+                align-items: center;
+                background-color: #000;
+                display: flex;
+                justify-content: center;
+                height: 100vh;
+            }
+            .form {
+                background-color: #15172b;
+                border-radius: 20px;
+                box-sizing: border-box;
+                height: fit-content;
+                padding: 20px;
+                width: 320px;
+            }
+            .title {    
+                color: #eee;
+                font-family: sans-serif;
+                font-size: 36px;
+                font-weight: 600;
+                margin-top: 20px;
+            }
+            .subtitle {
+                color: #eee;
+                font-family: sans-serif;
+                font-size: 16px;
+                font-weight: 600;
+                margin-top: 10px;
+            }
+
+            .input-container {
+                height: 50px;
+                position: relative;
+                width: 100%;
+            }
+
+            .ic1 {
+                margin-top: 40px;
+            }
+
+            .ic2 {
+                margin-top: 30px;
+            }
+
+            .input {
+                background-color: #303245;
+                border-radius: 12px;
+                border: 0;
+                box-sizing: border-box;
+                color: #eee;
+                font-size: 18px;
+                height: 100%;
+                outline: 0;
+                padding: 4px 20px 0;
+                width: 100%;
+            }
+
+
+
+            .cut {
+                background-color: #15172b;
+                border-radius: 500px;
+                height: 20px;
+                left: 20px;
+                position: absolute;
+                top: -20px;
+                width: 76px;
+            }
+
+            .cut-short {
+                width: 50px;
+            }
+
+            .input:focus ~ .cut,
+            .input:not(:placeholder-shown) ~ .cut {
+                transform: translateY(8px);
+            }
+
+            .placeholder {
+                color: #65657b;
+                font-family: sans-serif;
+                left: 20px;
+                line-height: 14px;
+                pointer-events: none;
+                position: absolute;
+                transform-origin: 0 50%;
+                transition: transform 200ms, color 200ms;
+                top: 20px;
+            }
+
+            .input:focus ~ .placeholder,
+            .input:not(:placeholder-shown) ~ .placeholder {
+                transform: translateY(-30px) translateX(10px) scale(0.75);
+            }
+
+            .input:not(:placeholder-shown) ~ .placeholder {
+                color: #808097;
+            }
+
+            .input:focus ~ .placeholder {
+                color: #dc2f55;
+            }
+
+            .submit {
+                background-color: #08d;
+                border-radius: 12px;
+                border: 0;
+                box-sizing: border-box;
+                color: #eee;
+                cursor: pointer;
+                font-size: 18px;
+                height: 50px;
+                margin-top: 38px;
+                text-align: center;
+                width: 100%;
+            }
+
+            .submit:active {
+                background-color: #06b;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="form">
+            <div class="title">Welcome!</div>
+            <div class="subtitle">Fill your interested domain.</div>
+            <div class="input-container ic1">
+              <input id="name" class="input" type="text" placeholder=" " />
+              <div class="cut"></div>
+              <label for="name" class="placeholder">Name</label>
+            </div>
+            <div class="input-container ic2">
+              <input id="email" class="input" type="email" placeholder=" " />
+              <div class="cut cut-short"></div>
+              <label for="email" class="placeholder">Email ID</label>
+            </div>
+            <div class="input-container ic2">
+                <input id="branch" class="input" type="text" placeholder=" " />
+                <div class="cut"></div>
+                <label for="branch" class="placeholder">Branch</label>
+            </div>
+            <div class="input-container ic2">
+                <input id="rollno" class="input" type="text" placeholder=" " />
+                <div class="cut"></div>
+                <label for="rollno" class="placeholder">Roll No.</label>
+            </div>
+            <div class="input-container ic2">
+                <select id="course" class="input" placeholder=" ">
+                    <option></option>
+                    <option>Ethical Hacking</option>
+                    <option>Web Development</option>
+                    <option>Android Development</option>
+                    <option>Software Development</option>
+                </select>
+                <div class="cut"></div>
+                <label for="course" class="placeholder">Course</label>
+            </div>
+            <div class="input-container ic2">
+                <input id="contact" class="input" type="text" placeholder=" " />
+                <div class="cut"></div>
+                <label for="contact" class="placeholder">Contact No.</label>
+            </div>
+            <button type="text" class="submit" onclick="SubmitInfo();">submit</button>
+        </div>   
+        <script>
+            function createPUTRequest(connToken, jsonObj, dbName, relName) {
+            var putRequest = "{\n"
+                    + "\"token\" : \""
+                    + connToken
+                    + "\","
+                    + "\"dbName\": \""
+                    + dbName
+                    + "\",\n" + "\"cmd\" : \"PUT\",\n"
+                    + "\"rel\" : \""
+                    + relName + "\","
+                    + "\"jsonStr\": \n"
+                    + jsonObj
+                    + "\n"
+                    + "}";
+            return putRequest;
+        }
+        
+            function executeCommand(reqString, dbBaseUrl, apiEndPointUrl) {
+                var url = dbBaseUrl + apiEndPointUrl;
+                var jsonObj;
+                $.post(url, reqString, function (result) {
+                jsonObj = JSON.parse(result);
+                }).fail(function (result) {
+                var dataJsonObj = result.responseText;
+                jsonObj = JSON.parse(dataJsonObj);
+                });
+                return jsonObj;
+            }
+
+            function validateAndGetFormData() {
+                
+                var name = document.getElementById("name").value;
+                if (name === "") {
+                    alert("Student name is required");
+                    $("#name").focus();
+                    return "";
+                }
+                var email = document.getElementById("email").value;
+                if (email === "") {
+                    alert("Student email ID is required");
+                    $("#email").focus();
+                    return "";
+                }
+                var branch = document.getElementById("branch").value;
+                if (branch === "") {
+                    alert("Student branch is required");
+                    $("#branch").focus();
+                    return "";
+                }
+                var rollno = document.getElementById("rollno").value;
+                if (rollno === "") {
+                    alert("Student roll no. is required");
+                    $("#rollno").focus();
+                    return "";
+                }
+                var course = document.getElementById("course").value;
+                if (course === "") {
+                    alert("Select the course");
+                    $("#course").focus();
+                    return "";
+                }
+                var contact = document.getElementById("contact").value;
+                if (contact === "") {
+                    alert("Student contact no. is required");
+                    $("#contact").focus();
+                    return "";
+                }
+                
+                var jsonStrObj = {
+                    CandidateName: name,
+                    Email: email,
+                    Branch: branch,
+                    RollNo: rollno,
+                    Course: course,
+                    Contact: contact, 
+                };
+                return JSON.stringify(jsonStrObj);
+            }
+            
+            function resetForm() {
+                $("#name").val("")
+                $("#email").val("");
+                $("#branch").val("");
+                $("#rollno").val("")
+                $("#course").val("");
+                $("#contact").val("");
+                $("#name").focus();
+            }
+    
+            function SubmitInfo() {
+    
+                var jsonStr = validateAndGetFormData();
+                if (jsonStr === "") {
+                    return;
+                }
+                var putReqStr = createPUTRequest("90937422|-31949292222132901|90942981",
+                        jsonStr, "Student", "Student-interest");
+                alert("Want to sumbit"+putReqStr);
+                jQuery.ajaxSetup({async: false});
+                var resultObj = executeCommand(putReqStr,
+                        "http://api.login2explore.com:5577", "/api/iml");
+                jQuery.ajaxSetup({async: true});
+                alert( "INSERTED "+JSON.stringify(resultObj));
+                resetForm();
+            }
+        </script>
+    </body>
+</html>
