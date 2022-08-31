@@ -21,7 +21,10 @@ Mini project
 ### Screenshots:
 
 
-![Screenshot (40)](https://user-images.githubusercontent.com/90211410/178808503-5622e20a-ced8-4239-8f85-2c3e9825926b.png)
-![Screenshot (37)](https://user-images.githubusercontent.com/90211410/178807990-6fbd4818-57ad-4c51-8e22-8393b5c0881c.png)
-![Screenshot (38)](https://user-images.githubusercontent.com/90211410/178808004-8ff4827a-234e-448c-9962-9a87f2c21323.png)
-![Screenshot (39)](https://user-images.githubusercontent.com/90211410/178808013-6b3f5ba7-0e17-45b6-a204-76256df3c474.png)
+![Screenshot (44)](https://user-images.githubusercontent.com/112549956/187654649-d88f143a-3657-48f4-96a9-5f613e923cf0.png)
+![Screenshot (45)](https://user-images.githubusercontent.com/112549956/187654695-783a7ca3-5e37-446f-bbd2-298545a72768.png)
+![Screenshot (46)](https://user-images.githubusercontent.com/112549956/187654755-7ff5e698-952f-4486-846f-81c75237148f.png)
+![Screenshot (47)](https://user-images.githubusercontent.com/112549956/187654817-4455d9eb-31e6-4779-b6ea-694cdaf788a7.png)
+
+
+
